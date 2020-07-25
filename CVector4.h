@@ -4,7 +4,7 @@
 class CVector4
 {
 public:
-	CVector4() {}
+	CVector4():m_fX(0), m_fY(0), m_fZ(0), m_fW(0){}
 
 	CVector4(const CVector4& V)
 	{
