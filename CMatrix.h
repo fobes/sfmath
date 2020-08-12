@@ -12,9 +12,11 @@ class MATHS_API CMatrix
 public:
 	CMatrix();
 	CMatrix(const CTransform& other);
+	CMatrix(const CRotation& other);
 
 public:
 	void Set(const CRotation& rotation, const CVector3& vtTranslation, float fScale);
+	void Set(const CRotation& rotation);
 	void SetIdentity();
 
 public:

@@ -14,7 +14,7 @@ CVector3::CVector3() :m_fX(0.0), m_fY(0.0), m_fZ(0.0)
 
 }
 
-CVector3::CVector3(const CVector3 &other):m_fX(other.m_fX), m_fY(other.m_fY), m_fZ(other.m_fY)
+CVector3::CVector3(const CVector3 &other):m_fX(other.m_fX), m_fY(other.m_fY), m_fZ(other.m_fZ)
 {
 
 }

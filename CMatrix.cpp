@@ -18,6 +18,11 @@ CMatrix::CMatrix(const CTransform& other)
 	Set(other.m_rotation, other.m_vtTranslation, other.m_fScale);
 }
 
+CMatrix::CMatrix(const CRotation& other)
+{
+	Set(other);
+}
+
 void CMatrix::Set(const CRotation& rotation, const CVector3& vtTranslation, float fScale)
 {
 	float fCos = cosf(rotation.m_fAngle);
@@ -44,6 +49,35 @@ void CMatrix::Set(const CRotation& rotation, const CVector3& vtTranslation, floa
 		fScale * (lxlxomc + fCos),		fScale * (lxlyomc + lzs),	fScale * (lxlzomc - lys),	vtTranslation.m_fX,
 		fScale* (lxlyomc - lzs),		fScale * (lylyomc + fCos),	fScale * (lylzomc + lxs),	vtTranslation.m_fY,
 		fScale* (lxlzomc + lys),		fScale * (lylzomc - lxs),	fScale * (lzlzomc + fCos),	vtTranslation.m_fZ,
+		0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+void CMatrix::Set(const CRotation& rotation)
+{
+	float fCos = cosf(rotation.m_fAngle);
+	float fSin = sinf(rotation.m_fAngle);
+
+	float omc = 1.0f - fCos;
+
+	float lx = rotation.m_vtAxis.m_fX;
+	float ly = rotation.m_vtAxis.m_fY;
+	float lz = rotation.m_vtAxis.m_fZ;
+
+	float lxlxomc = lx * lx * omc;
+	float lxlyomc = lx * ly * omc;
+	float lxlzomc = lx * lz * omc;
+	float lylyomc = ly * ly * omc;
+	float lylzomc = ly * lz * omc;
+	float lzlzomc = lz * lz * omc;
+
+	float lxs = lx * fSin;
+	float lys = ly * fSin;
+	float lzs = lz * fSin;
+
+	MTXSET(*this,
+		(lxlxomc + fCos),	(lxlyomc + lzs),	(lxlzomc - lys),	0,
+		(lxlyomc - lzs),	(lylyomc + fCos),	(lylzomc + lxs),	0,
+		(lxlzomc + lys),	(lylzomc - lxs),	(lzlzomc + fCos),	0,
 		0.0f, 0.0f, 0.0f, 1.0f);
 }
 

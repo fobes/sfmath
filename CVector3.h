@@ -39,4 +39,3 @@ public:
 public:
 	float m_fX, m_fY, m_fZ;
 };
-
