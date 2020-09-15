@@ -141,3 +141,13 @@ const CVector3& CMatrix::Mul(CVector3* pOut, const CVector3& AA, const CMatrix& 
 	return *pOut;
 }
 
+const CVector4& CMatrix::Mul(CVector4* pRes, const CVector3& A, const CMatrix& M)
+{
+	pRes->m_fX = M.m11 * A.m_fX + M.m12 * A.m_fY + M.m13 * A.m_fZ + M.m14;
+	pRes->m_fY = M.m21 * A.m_fX + M.m22 * A.m_fY + M.m23 * A.m_fZ + M.m24;
+	pRes->m_fZ = M.m31 * A.m_fX + M.m32 * A.m_fY + M.m33 * A.m_fZ + M.m34;
+	pRes->m_fW = M.m41 * A.m_fX + M.m42 * A.m_fY + M.m43 * A.m_fZ + M.m44;
+
+	return *pRes;
+}
+
