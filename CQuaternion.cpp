@@ -4,12 +4,17 @@
 
 #define M_PI 3.14159265358979323846
 
-CQuaternion::CQuaternion(const CVector3& n, float fAngleDegree)
+CQuaternion::CQuaternion(const CVector3& vt, float fAngleDegree)
 {
 	fAngleDegree = fAngleDegree / 360 * (float)M_PI * 2;
 
 	m_fW = cos(fAngleDegree / 2);
-	m_vtAxis = n * sin(fAngleDegree / 2);
+	m_vtAxis = vt * sin(fAngleDegree / 2);
+}
+
+CQuaternion::CQuaternion()
+{
+
 }
 
 const CQuaternion CQuaternion::Inverted() const

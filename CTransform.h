@@ -1,11 +1,6 @@
 #pragma once
 #include "CVector3.h"
-
-#ifdef EXPORT_API
-#define MATHS_API __declspec(dllexport)
-#else
-#define MATHS_API __declspec(dllimport)
-#endif
+#include "Export.h"
 
 class MATHS_API CRotation
 {
