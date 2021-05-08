@@ -17,22 +17,22 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vertices.h">
+    <ClInclude Include="SfmathVertices.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CVector3.h">
+    <ClInclude Include="CSfmathVector3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CMatrix.h">
+    <ClInclude Include="CSfmathMatrix.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CTransform.h">
+    <ClInclude Include="CSfmathTransform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CVector4.h">
+    <ClInclude Include="CSfmathVector4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="CQuaternion.h">
+    <ClInclude Include="CSfmathQuaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Export.h">
@@ -49,19 +49,19 @@
     <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CVector3.cpp">
+    <ClCompile Include="CSfmathVector3.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CMatrix.cpp">
+    <ClCompile Include="CSfmathMatrix.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CVector4.cpp">
+    <ClCompile Include="CSfmathVector4.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CTransform.cpp">
+    <ClCompile Include="CSfmathTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CQuaternion.cpp">
+    <ClCompile Include="CSfmathQuaternion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
