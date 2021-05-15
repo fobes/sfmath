@@ -13,6 +13,7 @@ public:
 public:
 	void Set(const CSfmathRotation& rotation, const CSfmathVector3& vtTranslation, float fScale);
 	void Set(const CSfmathRotation& rotation);
+	void Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ);
 	void SetIdentity();
 
 public:

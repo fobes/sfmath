@@ -72,6 +72,29 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation)
 	m41 = 0.0f;				m42 = 0.0f;				m43 = 0.0f;				m44 = 1.0f;
 }
 
+void CSfmathMatrix::Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ)
+{
+	m11 = vtX.m_fX;
+	m12 = vtY.m_fX;
+	m13 = vtZ.m_fX;
+	m14 = ptOrigin.m_fX;
+
+	m21 = vtX.m_fY;
+	m22 = vtY.m_fY;
+	m23 = vtZ.m_fY;
+	m24 = ptOrigin.m_fY;
+
+	m31 = vtX.m_fZ;
+	m32 = vtY.m_fZ;
+	m33 = vtZ.m_fZ;
+	m34 = ptOrigin.m_fZ;
+
+	m41 = 0;
+	m42 = 0;
+	m43 = 0;
+	m44 = 1;
+}
+
 void CSfmathMatrix::SetIdentity()
 {
 	m12 = m13 = m14 = m21 = m23 = m24 = m31 = m32 = m34 = m41 = m42 = m43 = 0.0f;
