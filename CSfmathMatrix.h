@@ -17,11 +17,9 @@ public:
 	void SetIdentity();
 
 public:
-	static const CSfmathMatrix& Perspective(CSfmathMatrix* pDest, float fYFOV, float fAspect, float fNear, float fFar);
-	static const CSfmathMatrix& Mul(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC);
-	static const CSfmathVector3& Mul(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M);
-	static const CSfmathVector4& Mul(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M);
-
+	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC);
+	static const CSfmathVector3& Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M);
+	static const CSfmathVector4& Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M);
 
 public:
 	float m11, m12, m13, m14;

@@ -9,7 +9,7 @@ inline float rsqrt(float f)
 	return f;
 }
 
-CSfmathVector3::CSfmathVector3() :m_fX(0.0), m_fY(0.0), m_fZ(0.0)
+CSfmathVector3::CSfmathVector3()
 {
 
 }

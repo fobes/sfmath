@@ -101,22 +101,7 @@ void CSfmathMatrix::SetIdentity()
 	m11 = m22 = m33 = m44 = 1.0f;
 }
 
-const CSfmathMatrix& CSfmathMatrix::Perspective(CSfmathMatrix* pDest, float fYFOV, float fAspect, float fNear, float fFar)
-{
-	float fTanHalfFov = tanf(fYFOV * 0.5f);
-
-	float fScaleY = 1.0f / fTanHalfFov;
-	float fScaleX = fScaleY / fAspect;
-
-	pDest->m11 = fScaleX;  pDest->m12 = 0.0f;       pDest->m13 = 0.0f;					pDest->m14 = 0.0f;
-	pDest->m21 = 0.0f;     pDest->m22 = fScaleY;    pDest->m23 = 0.0f;					pDest->m24 = 0.0f;
-	pDest->m31 = 0.0f;	   pDest->m32 = 0.0f;	    pDest->m33 = fFar / (fFar - fNear);	pDest->m34 = -fNear * fFar / (fFar - fNear);
-	pDest->m41 = 0.0f;	   pDest->m42 = 0.0f;	    pDest->m43 = 1.0f;					pDest->m44 = 0.0f;
-
-	return *pDest;
-}
-
-const CSfmathMatrix& CSfmathMatrix::Mul(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC)
+const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC)
 {
 	pAtoC->m11 = AtoB.m11 * BtoC.m11 + AtoB.m21 * BtoC.m12 + AtoB.m31 * BtoC.m13 + AtoB.m41 * BtoC.m14;
 	pAtoC->m12 = AtoB.m12 * BtoC.m11 + AtoB.m22 * BtoC.m12 + AtoB.m32 * BtoC.m13 + AtoB.m42 * BtoC.m14;
@@ -141,7 +126,7 @@ const CSfmathMatrix& CSfmathMatrix::Mul(CSfmathMatrix* pAtoC, const CSfmathMatri
 	return *pAtoC;
 }
 
-const CSfmathVector3& CSfmathMatrix::Mul(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M)
+const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M)
 {
 	CSfmathVector3 A(AA);
 
@@ -152,7 +137,7 @@ const CSfmathVector3& CSfmathMatrix::Mul(CSfmathVector3* pOut, const CSfmathVect
 	return *pOut;
 }
 
-const CSfmathVector4& CSfmathMatrix::Mul(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M)
+const CSfmathVector4& CSfmathMatrix::Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M)
 {
 	pRes->m_fX = M.m11 * A.m_fX + M.m12 * A.m_fY + M.m13 * A.m_fZ + M.m14;
 	pRes->m_fY = M.m21 * A.m_fX + M.m22 * A.m_fY + M.m23 * A.m_fZ + M.m24;
