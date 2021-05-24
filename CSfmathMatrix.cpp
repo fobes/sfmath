@@ -23,9 +23,9 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation, const CSfmathVector3& v
 
 	float omc = 1.0f - fCos;
 
-	float lx = rotation.m_vtAxis.m_fX;
-	float ly = rotation.m_vtAxis.m_fY;
-	float lz = rotation.m_vtAxis.m_fZ;
+	float lx = rotation.m_vtAxis.m[0];
+	float ly = rotation.m_vtAxis.m[1];
+	float lz = rotation.m_vtAxis.m[2];
 
 	float lxlxomc = lx * lx * omc;
 	float lxlyomc = lx * ly * omc;
@@ -38,10 +38,10 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation, const CSfmathVector3& v
 	float lys = ly * fSin;
 	float lzs = lz * fSin;
 
-	m11 = fScale * (lxlxomc + fCos); m12 = fScale * (lxlyomc + lzs);  m13 = fScale * (lxlzomc - lys);	 m14 = vtTranslation.m_fX;
-	m21 = fScale * (lxlyomc - lzs);	 m22 = fScale * (lylyomc + fCos); m23 = fScale * (lylzomc + lxs);	 m24 = vtTranslation.m_fY;
-	m31 = fScale * (lxlzomc + lys);	 m32 = fScale * (lylzomc - lxs);  m33 = fScale * (lzlzomc + fCos);	 m34 = vtTranslation.m_fZ,
-	m41 = 0.0f;						 m42 = 0.0f;					  m43 = 0.0f;						 m44 = 1.0f;
+	m1[0] = fScale * (lxlxomc + fCos); m1[1] = fScale * (lxlyomc + lzs);  m1[2] = fScale * (lxlzomc - lys);	 m1[3] = vtTranslation.m[0];
+	m2[0] = fScale * (lxlyomc - lzs);	 m2[1] = fScale * (lylyomc + fCos); m2[2] = fScale * (lylzomc + lxs);	 m2[3] = vtTranslation.m[1];
+	m3[0] = fScale * (lxlzomc + lys);	 m3[1] = fScale * (lylzomc - lxs);  m3[2] = fScale * (lzlzomc + fCos);	 m3[3] = vtTranslation.m[2],
+	m4[0] = 0.0f;						 m4[1] = 0.0f;					  m4[2] = 0.0f;						 m4[3] = 1.0f;
 }
 
 void CSfmathMatrix::Set(const CSfmathRotation& rotation)
@@ -51,9 +51,9 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation)
 
 	float omc = 1.0f - fCos;
 
-	float lx = rotation.m_vtAxis.m_fX;
-	float ly = rotation.m_vtAxis.m_fY;
-	float lz = rotation.m_vtAxis.m_fZ;
+	float lx = rotation.m_vtAxis.m[0];
+	float ly = rotation.m_vtAxis.m[1];
+	float lz = rotation.m_vtAxis.m[2];
 
 	float lxlxomc = lx * lx * omc;
 	float lxlyomc = lx * ly * omc;
@@ -66,62 +66,62 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation)
 	float lys = ly * fSin;
 	float lzs = lz * fSin;
 
-	m11 = (lxlxomc + fCos); m12 = (lxlyomc + lzs);	m13 = (lxlzomc - lys);  m14 = 0;
-	m21 = (lxlyomc - lzs);	m22 = (lylyomc + fCos); m23 = (lylzomc + lxs);  m24 = 0;
-	m31 = (lxlzomc + lys);	m32 = (lylzomc - lxs);	m33 = (lzlzomc + fCos); m34 = 0;
-	m41 = 0.0f;				m42 = 0.0f;				m43 = 0.0f;				m44 = 1.0f;
+	m1[0] = (lxlxomc + fCos); m1[1] = (lxlyomc + lzs);	m1[2] = (lxlzomc - lys);  m1[3] = 0;
+	m2[0] = (lxlyomc - lzs);	m2[1] = (lylyomc + fCos); m2[2] = (lylzomc + lxs);  m2[3] = 0;
+	m3[0] = (lxlzomc + lys);	m3[1] = (lylzomc - lxs);	m3[2] = (lzlzomc + fCos); m3[3] = 0;
+	m4[0] = 0.0f;				m4[1] = 0.0f;				m4[2] = 0.0f;				m4[3] = 1.0f;
 }
 
 void CSfmathMatrix::Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ)
 {
-	m11 = vtX.m_fX;
-	m12 = vtY.m_fX;
-	m13 = vtZ.m_fX;
-	m14 = ptOrigin.m_fX;
+	m1[0] = vtX.m[0];
+	m1[1] = vtY.m[0];
+	m1[2] = vtZ.m[0];
+	m1[3] = ptOrigin.m[0];
 
-	m21 = vtX.m_fY;
-	m22 = vtY.m_fY;
-	m23 = vtZ.m_fY;
-	m24 = ptOrigin.m_fY;
+	m2[0] = vtX.m[1];
+	m2[1] = vtY.m[1];
+	m2[2] = vtZ.m[1];
+	m2[3] = ptOrigin.m[1];
 
-	m31 = vtX.m_fZ;
-	m32 = vtY.m_fZ;
-	m33 = vtZ.m_fZ;
-	m34 = ptOrigin.m_fZ;
+	m3[0] = vtX.m[2];
+	m3[1] = vtY.m[2];
+	m3[2] = vtZ.m[2];
+	m3[3] = ptOrigin.m[2];
 
-	m41 = 0;
-	m42 = 0;
-	m43 = 0;
-	m44 = 1;
+	m4[0] = 0;
+	m4[1] = 0;
+	m4[2] = 0;
+	m4[3] = 1;
 }
 
 void CSfmathMatrix::SetIdentity()
 {
-	m12 = m13 = m14 = m21 = m23 = m24 = m31 = m32 = m34 = m41 = m42 = m43 = 0.0f;
-	m11 = m22 = m33 = m44 = 1.0f;
+	m1[1] = m1[2] = m1[3] = m2[0] = m2[2] = m2[3] = m3[0] = m3[1] = m3[3] = m4[0] = m4[1] = m4[2] = 0.0f;
+	m1[0] = m2[1] = m3[2] = m4[3] = 1.0f;
 }
 
 const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC)
 {
-	pAtoC->m11 = AtoB.m11 * BtoC.m11 + AtoB.m21 * BtoC.m12 + AtoB.m31 * BtoC.m13 + AtoB.m41 * BtoC.m14;
-	pAtoC->m12 = AtoB.m12 * BtoC.m11 + AtoB.m22 * BtoC.m12 + AtoB.m32 * BtoC.m13 + AtoB.m42 * BtoC.m14;
-	pAtoC->m13 = AtoB.m13 * BtoC.m11 + AtoB.m23 * BtoC.m12 + AtoB.m33 * BtoC.m13 + AtoB.m43 * BtoC.m14;
-	pAtoC->m14 = AtoB.m14 * BtoC.m11 + AtoB.m24 * BtoC.m12 + AtoB.m34 * BtoC.m13 + AtoB.m44 * BtoC.m14;
+	pAtoC->m1[0] = AtoB.m1[0] * BtoC.m1[0] + AtoB.m2[0] * BtoC.m1[1] + AtoB.m3[0] * BtoC.m1[2] + AtoB.m4[0] * BtoC.m1[3];
+	pAtoC->m1[1] = AtoB.m1[1] * BtoC.m1[0] + AtoB.m2[1] * BtoC.m1[1] + AtoB.m3[1] * BtoC.m1[2] + AtoB.m4[1] * BtoC.m1[3];
+	pAtoC->m1[2] = AtoB.m1[2] * BtoC.m1[0] + AtoB.m2[2] * BtoC.m1[1] + AtoB.m3[2] * BtoC.m1[2] + AtoB.m4[2] * BtoC.m1[3];
+	pAtoC->m1[3] = AtoB.m1[3] * BtoC.m1[0] + AtoB.m2[3] * BtoC.m1[1] + AtoB.m3[3] * BtoC.m1[2] + AtoB.m4[3] * BtoC.m1[3];
 
-	pAtoC->m21 = AtoB.m11 * BtoC.m21 + AtoB.m21 * BtoC.m22 + AtoB.m31 * BtoC.m23 + AtoB.m41 * BtoC.m24;
-	pAtoC->m22 = AtoB.m12 * BtoC.m21 + AtoB.m22 * BtoC.m22 + AtoB.m32 * BtoC.m23 + AtoB.m42 * BtoC.m24;
-	pAtoC->m23 = AtoB.m13 * BtoC.m21 + AtoB.m23 * BtoC.m22 + AtoB.m33 * BtoC.m23 + AtoB.m43 * BtoC.m24;
-	pAtoC->m24 = AtoB.m14 * BtoC.m21 + AtoB.m24 * BtoC.m22 + AtoB.m34 * BtoC.m23 + AtoB.m44 * BtoC.m24;
+	pAtoC->m2[0] = AtoB.m1[0] * BtoC.m2[0] + AtoB.m2[0] * BtoC.m2[1] + AtoB.m3[0] * BtoC.m2[2] + AtoB.m4[0] * BtoC.m2[3];
+	pAtoC->m2[1] = AtoB.m1[1] * BtoC.m2[0] + AtoB.m2[1] * BtoC.m2[1] + AtoB.m3[1] * BtoC.m2[2] + AtoB.m4[1] * BtoC.m2[3];
+	pAtoC->m2[2] = AtoB.m1[2] * BtoC.m2[0] + AtoB.m2[2] * BtoC.m2[1] + AtoB.m3[2] * BtoC.m2[2] + AtoB.m4[2] * BtoC.m2[3];
+	pAtoC->m2[3] = AtoB.m1[3] * BtoC.m2[0] + AtoB.m2[3] * BtoC.m2[1] + AtoB.m3[3] * BtoC.m2[2] + AtoB.m4[3] * BtoC.m2[3];
 
-	pAtoC->m31 = AtoB.m11 * BtoC.m31 + AtoB.m21 * BtoC.m32 + AtoB.m31 * BtoC.m33 + AtoB.m41 * BtoC.m34;
-	pAtoC->m32 = AtoB.m12 * BtoC.m31 + AtoB.m22 * BtoC.m32 + AtoB.m32 * BtoC.m33 + AtoB.m42 * BtoC.m34;
-	pAtoC->m33 = AtoB.m13 * BtoC.m31 + AtoB.m23 * BtoC.m32 + AtoB.m33 * BtoC.m33 + AtoB.m43 * BtoC.m34;
-	pAtoC->m34 = AtoB.m14 * BtoC.m31 + AtoB.m24 * BtoC.m32 + AtoB.m34 * BtoC.m33 + AtoB.m44 * BtoC.m34;
+	pAtoC->m3[0] = AtoB.m1[0] * BtoC.m3[0] + AtoB.m2[0] * BtoC.m3[1] + AtoB.m3[0] * BtoC.m3[2] + AtoB.m4[0] * BtoC.m3[3];
+	pAtoC->m3[1] = AtoB.m1[1] * BtoC.m3[0] + AtoB.m2[1] * BtoC.m3[1] + AtoB.m3[1] * BtoC.m3[2] + AtoB.m4[1] * BtoC.m3[3];
+	pAtoC->m3[2] = AtoB.m1[2] * BtoC.m3[0] + AtoB.m2[2] * BtoC.m3[1] + AtoB.m3[2] * BtoC.m3[2] + AtoB.m4[2] * BtoC.m3[3];
+	pAtoC->m3[3] = AtoB.m1[3] * BtoC.m3[0] + AtoB.m2[3] * BtoC.m3[1] + AtoB.m3[3] * BtoC.m3[2] + AtoB.m4[3] * BtoC.m3[3];
 
-	pAtoC->m41 = AtoB.m11 * BtoC.m41 + AtoB.m21 * BtoC.m42 + AtoB.m31 * BtoC.m43 + AtoB.m41 * BtoC.m44;
-	pAtoC->m42 = AtoB.m12 * BtoC.m41 + AtoB.m22 * BtoC.m42 + AtoB.m32 * BtoC.m43 + AtoB.m42 * BtoC.m44;
-	pAtoC->m43 = AtoB.m13 * BtoC.m41 + AtoB.m23 * BtoC.m42 + AtoB.m33 * BtoC.m43 + AtoB.m43 * BtoC.m44;
-	pAtoC->m44 = AtoB.m14 * BtoC.m41 + AtoB.m24 * BtoC.m42 + AtoB.m34 * BtoC.m43 + AtoB.m44 * BtoC.m44;
+	pAtoC->m4[0] = AtoB.m1[0] * BtoC.m4[0] + AtoB.m2[0] * BtoC.m4[1] + AtoB.m3[0] * BtoC.m4[2] + AtoB.m4[0] * BtoC.m4[3];
+	pAtoC->m4[1] = AtoB.m1[1] * BtoC.m4[0] + AtoB.m2[1] * BtoC.m4[1] + AtoB.m3[1] * BtoC.m4[2] + AtoB.m4[1] * BtoC.m4[3];
+	pAtoC->m4[2] = AtoB.m1[2] * BtoC.m4[0] + AtoB.m2[2] * BtoC.m4[1] + AtoB.m3[2] * BtoC.m4[2] + AtoB.m4[2] * BtoC.m4[3];
+	pAtoC->m4[3] = AtoB.m1[3] * BtoC.m4[0] + AtoB.m2[3] * BtoC.m4[1] + AtoB.m3[3] * BtoC.m4[2] + AtoB.m4[3] * BtoC.m4[3];
 
 	return *pAtoC;
 }
@@ -130,19 +130,19 @@ const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pOut, const 
 {
 	CSfmathVector3 A(AA);
 
-	pOut->Set(M.m11 * A.m_fX + M.m12 * A.m_fY + M.m13 * A.m_fZ + M.m14,
-		M.m21 * A.m_fX + M.m22 * A.m_fY + M.m23 * A.m_fZ + M.m24,
-		M.m31 * A.m_fX + M.m32 * A.m_fY + M.m33 * A.m_fZ + M.m34);
+	pOut->Set(M.m1[0] * A.m[0] + M.m1[1] * A.m[1] + M.m1[2] * A.m[2] + M.m1[3],
+		M.m2[0] * A.m[0] + M.m2[1] * A.m[1] + M.m2[2] * A.m[2] + M.m2[3],
+		M.m3[0] * A.m[0] + M.m3[1] * A.m[1] + M.m3[2] * A.m[2] + M.m3[3]);
 
 	return *pOut;
 }
 
 const CSfmathVector4& CSfmathMatrix::Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M)
 {
-	pRes->m_fX = M.m11 * A.m_fX + M.m12 * A.m_fY + M.m13 * A.m_fZ + M.m14;
-	pRes->m_fY = M.m21 * A.m_fX + M.m22 * A.m_fY + M.m23 * A.m_fZ + M.m24;
-	pRes->m_fZ = M.m31 * A.m_fX + M.m32 * A.m_fY + M.m33 * A.m_fZ + M.m34;
-	pRes->m_fW = M.m41 * A.m_fX + M.m42 * A.m_fY + M.m43 * A.m_fZ + M.m44;
+	pRes->m[0] = M.m1[0] * A.m[0] + M.m1[1] * A.m[1] + M.m1[2] * A.m[2] + M.m1[3];
+	pRes->m[1] = M.m2[0] * A.m[0] + M.m2[1] * A.m[1] + M.m2[2] * A.m[2] + M.m2[3];
+	pRes->m[2] = M.m3[0] * A.m[0] + M.m3[1] * A.m[1] + M.m3[2] * A.m[2] + M.m3[3];
+	pRes->m[3] = M.m4[0] * A.m[0] + M.m4[1] * A.m[1] + M.m4[2] * A.m[2] + M.m4[3];
 
 	return *pRes;
 }

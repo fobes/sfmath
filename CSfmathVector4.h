@@ -17,7 +17,7 @@ public:
 	void Set(float fX, float fY, float fZ, float fW);
 
 public:
-	float m_fX, m_fY, m_fZ, m_fW;
+	float m[4];
 };
 
 CSfmathVector4 operator *(const CSfmathVector4& V, float k);

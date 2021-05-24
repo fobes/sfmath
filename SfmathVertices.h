@@ -10,29 +10,29 @@
 //Позиция
 struct MATHS_API CSfmathVertexP
 {
-	float m_fX, m_fY, m_fZ;
+	float m_pos[3];
 };
 
 //Позиция, нормаль
 struct MATHS_API CSfmathVertexPN
 {
-	float m_fX, m_fY, m_fZ;
-	float m_fNX, m_fNY, m_fNZ;
+	float m_pos[3];
+	float m_nor[3];
 };
 
 //Позиция, нормаль, текстура
 struct MATHS_API CSfmathVertexPNT
 {
-	float m_fX, m_fY, m_fZ;
-	float m_fNX, m_fNY, m_fNZ;
-	float m_fU, m_fV;
+	float m_pos[3];
+	float m_nor[3];
+	float m_tex[2];
 };
 
 //Позиция, нормаль, текстура, цвет(RGBA)
 struct MATHS_API CSfmathVertexPNTC
 {
-	float m_fX, m_fY, m_fZ;
-	float m_fNX, m_fNY, m_fNZ;
-	float m_fU, m_fV;
+	float m_pos[3];
+	float m_nor[3];
+	float m_tex[2];
 	DWORD m_nColor;
 };

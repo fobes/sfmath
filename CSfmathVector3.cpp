@@ -14,52 +14,52 @@ CSfmathVector3::CSfmathVector3()
 
 }
 
-CSfmathVector3::CSfmathVector3(const CSfmathVector3 &other):m_fX(other.m_fX), m_fY(other.m_fY), m_fZ(other.m_fZ)
+CSfmathVector3::CSfmathVector3(const CSfmathVector3& other) :m{ other.m[0], other.m[1], other.m[2] }
 {
 
 }
 
-CSfmathVector3::CSfmathVector3(float fX, float fY, float fZ):m_fX(fX), m_fY(fY), m_fZ(fZ)
+CSfmathVector3::CSfmathVector3(float fX, float fY, float fZ) : m{ fX, fY , fZ }
 {
 
 }
 
 const CSfmathVector3& CSfmathVector3::operator+=(const CSfmathVector3& other)
 {
-	m_fX += other.m_fX;
-	m_fY += other.m_fY;
-	m_fZ += other.m_fZ;
+	m[0] += other.m[0];
+	m[1] += other.m[1];
+	m[2] += other.m[2];
 
 	return *this;
 }
 
 CSfmathVector3 CSfmathVector3::operator+(const CSfmathVector3& vtOther) const
 {
-	return CSfmathVector3(m_fX + vtOther.m_fX, m_fY + vtOther.m_fY, m_fZ + vtOther.m_fZ);
+	return CSfmathVector3(m[0] + vtOther.m[0], m[1] + vtOther.m[1], m[2] + vtOther.m[2]);
 }
 
 const CSfmathVector3& CSfmathVector3::operator-=(const CSfmathVector3& other)
 {
-	m_fX -= other.m_fX;
-	m_fY -= other.m_fY;
-	m_fZ -= other.m_fZ;
+	m[0] -= other.m[0];
+	m[1] -= other.m[1];
+	m[2] -= other.m[2];
 
 	return *this;
 }
 
 CSfmathVector3 CSfmathVector3::operator-(const CSfmathVector3& vtOther) const
 {
-	return CSfmathVector3(m_fX - vtOther.m_fX, m_fY - vtOther.m_fY, m_fZ - vtOther.m_fZ);
+	return CSfmathVector3(m[0] - vtOther.m[0], m[1] - vtOther.m[1], m[2] - vtOther.m[2]);
 }
 
 CSfmathVector3 CSfmathVector3::operator-() const
 {
-	return CSfmathVector3(-m_fX, -m_fX, -m_fX);
+	return CSfmathVector3(-m[0], -m[0], -m[0]);
 }
 
 CSfmathVector3 CSfmathVector3::operator*(float k) const
 {
-	return CSfmathVector3(m_fX * k, m_fY * k, m_fZ * k);
+	return CSfmathVector3(m[0] * k, m[1] * k, m[2] * k);
 }
 
 CSfmathVector3 CSfmathVector3::operator/(float k) const
@@ -69,36 +69,38 @@ CSfmathVector3 CSfmathVector3::operator/(float k) const
 
 void CSfmathVector3::Set(float fX, float fY, float fZ)
 {
-	m_fX=fX;
-	m_fY=fY;
-	m_fZ=fZ;
+	m[0]=fX;
+	m[1]=fY;
+	m[2]=fZ;
 }
 
 void CSfmathVector3::SetX(float fX)
 {
-	m_fX = fX;
+	m[0] = fX;
 }
 
 void CSfmathVector3::SetY(float fY)
 {
-	m_fY = fY;
+	m[1] = fY;
 }
 
 void CSfmathVector3::SetZ(float fZ)
 {
-	m_fZ = fZ;
+	m[2] = fZ;
 }
 
 CSfmathVector3 CSfmathVector3::CrossProduct(const CSfmathVector3& vtOther) const
 {
-	return CSfmathVector3(m_fY * vtOther.m_fZ - m_fZ * vtOther.m_fY,
-		m_fZ * vtOther.m_fX - m_fX * vtOther.m_fZ,
-		m_fX * vtOther.m_fY - m_fY * vtOther.m_fX);
+	return CSfmathVector3(
+		m[1] * vtOther.m[2] - m[2] * vtOther.m[1], 
+		m[2] * vtOther.m[0] - m[0] * vtOther.m[2],
+		m[0] * vtOther.m[1] - m[1] * vtOther.m[0]
+	);
 }
 
 float CSfmathVector3::DotProduct(const CSfmathVector3& vtOther) const
 {
-	return m_fX * vtOther.m_fX + m_fY * vtOther.m_fY + m_fZ * vtOther.m_fZ;
+	return m[0] * vtOther.m[0] + m[1] * vtOther.m[1] + m[2] * vtOther.m[2];
 }
 
 CSfmathVector3 CSfmathVector3::Normalize() const

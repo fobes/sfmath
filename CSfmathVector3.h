@@ -32,5 +32,5 @@ public:
 	CSfmathVector3 Normalize() const;
 
 public:
-	float m_fX, m_fY, m_fZ;
+	float m[3];
 };

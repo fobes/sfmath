@@ -22,9 +22,9 @@ public:
 	static const CSfmathVector4& Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M);
 
 public:
-	float m11, m12, m13, m14;
-	float m21, m22, m23, m24;
-	float m31, m32, m33, m34;
-	float m41, m42, m43, m44;
+	float m1[4];
+	float m2[4];
+	float m3[4];
+	float m4[4];
 };
 
