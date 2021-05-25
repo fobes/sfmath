@@ -2,21 +2,21 @@
 #include "CSfmathMatrix.h"
 #include <math.h>
 
-CSfmathMatrix::CSfmathMatrix()
+CSfmathMatrix::CSfmathMatrix() noexcept
 {
 }
 
-CSfmathMatrix::CSfmathMatrix(const CSfmathTransform& other)
+CSfmathMatrix::CSfmathMatrix(const CSfmathTransform& other) noexcept
 {
 	Set(other.m_rotation, other.m_vtTranslation, other.m_fScale);
 }
 
-CSfmathMatrix::CSfmathMatrix(const CSfmathRotation& other)
+CSfmathMatrix::CSfmathMatrix(const CSfmathRotation& other) noexcept
 {
 	Set(other);
 }
 
-void CSfmathMatrix::Set(const CSfmathRotation& rotation, const CSfmathVector3& vtTranslation, float fScale)
+void CSfmathMatrix::Set(const CSfmathRotation& rotation, const CSfmathVector3& vtTranslation, float fScale) noexcept
 {
 	float fCos = cosf(rotation.m_fAngle);
 	float fSin = sinf(rotation.m_fAngle);
@@ -44,7 +44,7 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation, const CSfmathVector3& v
 	m4[0] = 0.0f;						 m4[1] = 0.0f;					  m4[2] = 0.0f;						 m4[3] = 1.0f;
 }
 
-void CSfmathMatrix::Set(const CSfmathRotation& rotation)
+void CSfmathMatrix::Set(const CSfmathRotation& rotation) noexcept
 {
 	float fCos = cosf(rotation.m_fAngle);
 	float fSin = sinf(rotation.m_fAngle);
@@ -72,7 +72,7 @@ void CSfmathMatrix::Set(const CSfmathRotation& rotation)
 	m4[0] = 0.0f;				m4[1] = 0.0f;				m4[2] = 0.0f;				m4[3] = 1.0f;
 }
 
-void CSfmathMatrix::Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ)
+void CSfmathMatrix::Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ) noexcept
 {
 	m1[0] = vtX.m[0];
 	m1[1] = vtY.m[0];
@@ -95,13 +95,13 @@ void CSfmathMatrix::Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vt
 	m4[3] = 1;
 }
 
-void CSfmathMatrix::SetIdentity()
+void CSfmathMatrix::SetIdentity() noexcept
 {
 	m1[1] = m1[2] = m1[3] = m2[0] = m2[2] = m2[3] = m3[0] = m3[1] = m3[3] = m4[0] = m4[1] = m4[2] = 0.0f;
 	m1[0] = m2[1] = m3[2] = m4[3] = 1.0f;
 }
 
-const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC)
+const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC) noexcept
 {
 	pAtoC->m1[0] = AtoB.m1[0] * BtoC.m1[0] + AtoB.m2[0] * BtoC.m1[1] + AtoB.m3[0] * BtoC.m1[2] + AtoB.m4[0] * BtoC.m1[3];
 	pAtoC->m1[1] = AtoB.m1[1] * BtoC.m1[0] + AtoB.m2[1] * BtoC.m1[1] + AtoB.m3[1] * BtoC.m1[2] + AtoB.m4[1] * BtoC.m1[3];
@@ -126,7 +126,7 @@ const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pAtoC, const C
 	return *pAtoC;
 }
 
-const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M)
+const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M) noexcept
 {
 	CSfmathVector3 A(AA);
 
@@ -137,7 +137,7 @@ const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pOut, const 
 	return *pOut;
 }
 
-const CSfmathVector4& CSfmathMatrix::Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M)
+const CSfmathVector4& CSfmathMatrix::Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M) noexcept
 {
 	pRes->m[0] = M.m1[0] * A.m[0] + M.m1[1] * A.m[1] + M.m1[2] * A.m[2] + M.m1[3];
 	pRes->m[1] = M.m2[0] * A.m[0] + M.m2[1] * A.m[1] + M.m2[2] * A.m[2] + M.m2[3];

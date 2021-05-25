@@ -1,37 +1,37 @@
 #include "stdafx.h"
 #include "CSfmathTransform.h"
 
-CSfmathRotation::CSfmathRotation()
+CSfmathRotation::CSfmathRotation() noexcept
 {
 
 }
 
-CSfmathRotation::CSfmathRotation(const CSfmathRotation& other) :m_vtAxis(other.m_vtAxis), m_fAngle(other.m_fAngle)
+CSfmathRotation::CSfmathRotation(const CSfmathRotation& other) noexcept :m_vtAxis(other.m_vtAxis), m_fAngle(other.m_fAngle)
 {
 
 }
 
-CSfmathRotation::CSfmathRotation(const CSfmathVector3& vtAxis, float fAngle) : m_vtAxis(vtAxis), m_fAngle(fAngle)
+CSfmathRotation::CSfmathRotation(const CSfmathVector3& vtAxis, float fAngle) noexcept : m_vtAxis(vtAxis), m_fAngle(fAngle)
 {
 
 }
 
-const CSfmathVector3& CSfmathRotation::GetAxis()
+const CSfmathVector3& CSfmathRotation::GetAxis() noexcept
 {
 	return m_vtAxis;
 }
 
-void CSfmathRotation::SetAxis(const CSfmathVector3& vtAxis)
+void CSfmathRotation::SetAxis(const CSfmathVector3& vtAxis) noexcept
 {
 	m_vtAxis = vtAxis;
 }
 
-float CSfmathRotation::GetAngle()
+float CSfmathRotation::GetAngle() noexcept
 {
 	return m_fAngle;
 }
 
-void CSfmathRotation::SetAngle(float fAngle)
+void CSfmathRotation::SetAngle(float fAngle) noexcept
 {
 	m_fAngle = fAngle;
 }

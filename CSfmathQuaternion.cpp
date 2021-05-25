@@ -4,7 +4,7 @@
 
 #define M_PI 3.14159265358979323846
 
-CSfmathQuaternion::CSfmathQuaternion(const CSfmathVector3& vt, float fAngleDegree)
+CSfmathQuaternion::CSfmathQuaternion(const CSfmathVector3& vt, float fAngleDegree) noexcept
 {
 	fAngleDegree = fAngleDegree / 360 * (float)M_PI * 2;
 
@@ -12,23 +12,23 @@ CSfmathQuaternion::CSfmathQuaternion(const CSfmathVector3& vt, float fAngleDegre
 	m_vtAxis = vt * sin(fAngleDegree / 2);
 }
 
-CSfmathQuaternion::CSfmathQuaternion()
+CSfmathQuaternion::CSfmathQuaternion() noexcept
 {
 
 }
 
-const CSfmathQuaternion CSfmathQuaternion::Inverted() const
+const CSfmathQuaternion CSfmathQuaternion::Inverted() const noexcept
 {
 	return CSfmathQuaternion(-m_vtAxis, m_fW);
 }
 
-const CSfmathQuaternion CSfmathQuaternion::operator*(const CSfmathQuaternion& q) const
+const CSfmathQuaternion CSfmathQuaternion::operator*(const CSfmathQuaternion& q) const noexcept
 {
 	return CSfmathQuaternion(m_vtAxis * q.m_fW + q.m_vtAxis * m_fW + m_vtAxis.CrossProduct(q.m_vtAxis),
 		m_fW * q.m_fW + m_vtAxis.DotProduct(q.m_vtAxis));
 }
 
-const CSfmathVector3 CSfmathQuaternion::operator*(const CSfmathVector3& V) const
+const CSfmathVector3 CSfmathQuaternion::operator*(const CSfmathVector3& V) const noexcept
 {
 	CSfmathQuaternion p;
 	p.m_fW = 0;

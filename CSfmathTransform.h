@@ -5,16 +5,16 @@
 class MATHS_API CSfmathRotation
 {
 public:
-	CSfmathRotation();
-	CSfmathRotation(const CSfmathRotation& other);
-	CSfmathRotation(const CSfmathVector3& vtAxis, float fAngle);
+	CSfmathRotation() noexcept;
+	CSfmathRotation(const CSfmathRotation& other) noexcept;
+	CSfmathRotation(const CSfmathVector3& vtAxis, float fAngle) noexcept;
 
 public:
-	const CSfmathVector3& GetAxis();
-	void SetAxis(const CSfmathVector3& vtAxis);
+	const CSfmathVector3& GetAxis() noexcept;
+	void SetAxis(const CSfmathVector3& vtAxis) noexcept;
 
-	float GetAngle();
-	void SetAngle(float fAngle);
+	float GetAngle() noexcept;
+	void SetAngle(float fAngle) noexcept;
 
 public:
 	CSfmathVector3 m_vtAxis;

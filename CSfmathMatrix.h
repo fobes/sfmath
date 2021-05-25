@@ -6,20 +6,20 @@
 class MATHS_API CSfmathMatrix
 {
 public:
-	CSfmathMatrix();
-	CSfmathMatrix(const CSfmathTransform& other);
-	CSfmathMatrix(const CSfmathRotation& other);
+	CSfmathMatrix() noexcept;
+	CSfmathMatrix(const CSfmathTransform& other) noexcept;
+	CSfmathMatrix(const CSfmathRotation& other) noexcept;
 
 public:
-	void Set(const CSfmathRotation& rotation, const CSfmathVector3& vtTranslation, float fScale);
-	void Set(const CSfmathRotation& rotation);
-	void Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ);
-	void SetIdentity();
+	void Set(const CSfmathRotation& rotation, const CSfmathVector3& vtTranslation, float fScale) noexcept;
+	void Set(const CSfmathRotation& rotation) noexcept;
+	void Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ) noexcept;
+	void SetIdentity() noexcept;
 
 public:
-	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC);
-	static const CSfmathVector3& Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M);
-	static const CSfmathVector4& Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M);
+	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC) noexcept;
+	static const CSfmathVector3& Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M) noexcept;
+	static const CSfmathVector4& Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M) noexcept;
 
 public:
 	float m1[4];
