@@ -16,10 +16,9 @@ public:
 	void Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ) noexcept;
 	void SetIdentity() noexcept;
 
-public:
-	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC) noexcept;
-	static const CSfmathVector3& Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M) noexcept;
-	static const CSfmathVector4& Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M) noexcept;
+public:	
+	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pMtxAtoC, const CSfmathMatrix& mtxAtoB, const CSfmathMatrix& mtxBtoC) noexcept;
+	static const CSfmathVector3& Multiplication(CSfmathVector3* pVtOut, const CSfmathVector3& vt, const CSfmathMatrix& mtx) noexcept;
 
 public:
 	float m1[4];
@@ -27,4 +26,3 @@ public:
 	float m3[4];
 	float m4[4];
 };
-

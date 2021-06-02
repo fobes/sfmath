@@ -1,6 +1,15 @@
 #include "stdafx.h"
 #include "CSfmathMatrix.h"
 #include <math.h>
+#include <xmmintrin.h>
+
+// Shuffle Parameters
+#define SHUFFLE_PARAM(x,y,z,w) ((x) |(y) <<2 | ((z) <<4) | ((w)<<6))
+#define _mm_replicate_x_ps(v) _mm_shuffle_ps((v),(v),SHUFFLE_PARAM(0,0,0,0))
+#define _mm_replicate_y_ps(v) _mm_shuffle_ps((v),(v),SHUFFLE_PARAM(1,1,1,1))
+#define _mm_replicate_z_ps(v) _mm_shuffle_ps((v),(v),SHUFFLE_PARAM(2,2,2,2))
+#define _mm_replicate_w_ps(v) _mm_shuffle_ps((v),(v),SHUFFLE_PARAM(3,3,3,3))
+#define _mm_madd_ps(a, b, c) _mm_add_ps(_mm_mul_ps((a), (b)), (c))
 
 CSfmathMatrix::CSfmathMatrix() noexcept
 {
@@ -101,49 +110,72 @@ void CSfmathMatrix::SetIdentity() noexcept
 	m1[0] = m2[1] = m3[2] = m4[3] = 1.0f;
 }
 
-const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pAtoC, const CSfmathMatrix& AtoB, const CSfmathMatrix& BtoC) noexcept
+const CSfmathMatrix& CSfmathMatrix::Multiplication(CSfmathMatrix* pMtxAtoC, const CSfmathMatrix& mtxAtoB, const CSfmathMatrix& mtxBtoC) noexcept
 {
-	pAtoC->m1[0] = AtoB.m1[0] * BtoC.m1[0] + AtoB.m2[0] * BtoC.m1[1] + AtoB.m3[0] * BtoC.m1[2] + AtoB.m4[0] * BtoC.m1[3];
-	pAtoC->m1[1] = AtoB.m1[1] * BtoC.m1[0] + AtoB.m2[1] * BtoC.m1[1] + AtoB.m3[1] * BtoC.m1[2] + AtoB.m4[1] * BtoC.m1[3];
-	pAtoC->m1[2] = AtoB.m1[2] * BtoC.m1[0] + AtoB.m2[2] * BtoC.m1[1] + AtoB.m3[2] * BtoC.m1[2] + AtoB.m4[2] * BtoC.m1[3];
-	pAtoC->m1[3] = AtoB.m1[3] * BtoC.m1[0] + AtoB.m2[3] * BtoC.m1[1] + AtoB.m3[3] * BtoC.m1[2] + AtoB.m4[3] * BtoC.m1[3];
+	const __m128 m1_row_0 = _mm_loadu_ps(mtxAtoB.m1);
+	const __m128 m1_row_1 = _mm_loadu_ps(mtxAtoB.m2);
+	const __m128 m1_row_2 = _mm_loadu_ps(mtxAtoB.m3);
+	const __m128 m1_row_3 = _mm_loadu_ps(mtxAtoB.m4);
 
-	pAtoC->m2[0] = AtoB.m1[0] * BtoC.m2[0] + AtoB.m2[0] * BtoC.m2[1] + AtoB.m3[0] * BtoC.m2[2] + AtoB.m4[0] * BtoC.m2[3];
-	pAtoC->m2[1] = AtoB.m1[1] * BtoC.m2[0] + AtoB.m2[1] * BtoC.m2[1] + AtoB.m3[1] * BtoC.m2[2] + AtoB.m4[1] * BtoC.m2[3];
-	pAtoC->m2[2] = AtoB.m1[2] * BtoC.m2[0] + AtoB.m2[2] * BtoC.m2[1] + AtoB.m3[2] * BtoC.m2[2] + AtoB.m4[2] * BtoC.m2[3];
-	pAtoC->m2[3] = AtoB.m1[3] * BtoC.m2[0] + AtoB.m2[3] * BtoC.m2[1] + AtoB.m3[3] * BtoC.m2[2] + AtoB.m4[3] * BtoC.m2[3];
+	const __m128 m2_row_0 = _mm_loadu_ps(mtxBtoC.m1);
+	const __m128 m2_row_1 = _mm_loadu_ps(mtxBtoC.m2);
+	const __m128 m2_row_2 = _mm_loadu_ps(mtxBtoC.m3);
+	const __m128 m2_row_3 = _mm_loadu_ps(mtxBtoC.m4);
 
-	pAtoC->m3[0] = AtoB.m1[0] * BtoC.m3[0] + AtoB.m2[0] * BtoC.m3[1] + AtoB.m3[0] * BtoC.m3[2] + AtoB.m4[0] * BtoC.m3[3];
-	pAtoC->m3[1] = AtoB.m1[1] * BtoC.m3[0] + AtoB.m2[1] * BtoC.m3[1] + AtoB.m3[1] * BtoC.m3[2] + AtoB.m4[1] * BtoC.m3[3];
-	pAtoC->m3[2] = AtoB.m1[2] * BtoC.m3[0] + AtoB.m2[2] * BtoC.m3[1] + AtoB.m3[2] * BtoC.m3[2] + AtoB.m4[2] * BtoC.m3[3];
-	pAtoC->m3[3] = AtoB.m1[3] * BtoC.m3[0] + AtoB.m2[3] * BtoC.m3[1] + AtoB.m3[3] * BtoC.m3[2] + AtoB.m4[3] * BtoC.m3[3];
+	__m128 out0 = _mm_mul_ps(m1_row_0, _mm_replicate_x_ps(m2_row_0));
+	__m128 out1 = _mm_mul_ps(m1_row_0, _mm_replicate_x_ps(m2_row_1));
+	__m128 out2 = _mm_mul_ps(m1_row_0, _mm_replicate_x_ps(m2_row_2));
+	__m128 out3 = _mm_mul_ps(m1_row_0, _mm_replicate_x_ps(m2_row_3));
 
-	pAtoC->m4[0] = AtoB.m1[0] * BtoC.m4[0] + AtoB.m2[0] * BtoC.m4[1] + AtoB.m3[0] * BtoC.m4[2] + AtoB.m4[0] * BtoC.m4[3];
-	pAtoC->m4[1] = AtoB.m1[1] * BtoC.m4[0] + AtoB.m2[1] * BtoC.m4[1] + AtoB.m3[1] * BtoC.m4[2] + AtoB.m4[1] * BtoC.m4[3];
-	pAtoC->m4[2] = AtoB.m1[2] * BtoC.m4[0] + AtoB.m2[2] * BtoC.m4[1] + AtoB.m3[2] * BtoC.m4[2] + AtoB.m4[2] * BtoC.m4[3];
-	pAtoC->m4[3] = AtoB.m1[3] * BtoC.m4[0] + AtoB.m2[3] * BtoC.m4[1] + AtoB.m3[3] * BtoC.m4[2] + AtoB.m4[3] * BtoC.m4[3];
+	out0 = _mm_madd_ps(m1_row_1, _mm_replicate_y_ps(m2_row_0), out0);
+	out1 = _mm_madd_ps(m1_row_1, _mm_replicate_y_ps(m2_row_1), out1);
+	out2 = _mm_madd_ps(m1_row_1, _mm_replicate_y_ps(m2_row_2), out2);
+	out3 = _mm_madd_ps(m1_row_1, _mm_replicate_y_ps(m2_row_3), out3);
 
-	return *pAtoC;
+	out0 = _mm_madd_ps(m1_row_2, _mm_replicate_z_ps(m2_row_0), out0);
+	out1 = _mm_madd_ps(m1_row_2, _mm_replicate_z_ps(m2_row_1), out1);
+	out2 = _mm_madd_ps(m1_row_2, _mm_replicate_z_ps(m2_row_2), out2);
+	out3 = _mm_madd_ps(m1_row_2, _mm_replicate_z_ps(m2_row_3), out3);
+
+	out0 = _mm_madd_ps(m1_row_3, _mm_replicate_w_ps(m2_row_0), out0);
+	out1 = _mm_madd_ps(m1_row_3, _mm_replicate_w_ps(m2_row_1), out1);
+	out2 = _mm_madd_ps(m1_row_3, _mm_replicate_w_ps(m2_row_2), out2);
+	out3 = _mm_madd_ps(m1_row_3, _mm_replicate_w_ps(m2_row_3), out3);
+
+	_mm_store_ps(pMtxAtoC->m1, out0);
+	_mm_store_ps(pMtxAtoC->m2, out1);
+	_mm_store_ps(pMtxAtoC->m3, out2);
+	_mm_store_ps(pMtxAtoC->m4, out3);
+
+	return *pMtxAtoC;
 }
 
-const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pOut, const CSfmathVector3& AA, const CSfmathMatrix& M) noexcept
+const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pVtOut, const CSfmathVector3& vt, const CSfmathMatrix& M) noexcept
 {
-	CSfmathVector3 A(AA);
+	const __m128& vector = _mm_setr_ps(vt.m[0], vt.m[1], vt.m[2], 0.f);
 
-	pOut->Set(M.m1[0] * A.m[0] + M.m1[1] * A.m[1] + M.m1[2] * A.m[2] + M.m1[3],
-		M.m2[0] * A.m[0] + M.m2[1] * A.m[1] + M.m2[2] * A.m[2] + M.m2[3],
-		M.m3[0] * A.m[0] + M.m3[1] * A.m[1] + M.m3[2] * A.m[2] + M.m3[3]);
+	const __m128& m_row_0 = _mm_loadu_ps(M.m1);
+	const __m128& m_row_1 = _mm_loadu_ps(M.m2);
+	const __m128& m_row_2 = _mm_loadu_ps(M.m3);
 
-	return *pOut;
+	__m128 out0 = _mm_mul_ps(_mm_replicate_x_ps(m_row_0), _mm_replicate_x_ps(vector));
+	out0 = _mm_add_ps(out0, _mm_mul_ps(_mm_replicate_y_ps(m_row_0), _mm_replicate_y_ps(vector)));
+	out0 = _mm_add_ps(out0, _mm_mul_ps(_mm_replicate_z_ps(m_row_0), _mm_replicate_z_ps(vector)));
+	out0 = _mm_add_ps(out0, _mm_replicate_w_ps(m_row_0));
+
+	__m128 out1 = _mm_mul_ps(_mm_replicate_x_ps(m_row_1), _mm_replicate_x_ps(vector));
+	out1 = _mm_add_ps(out1, _mm_mul_ps(_mm_replicate_y_ps(m_row_1), _mm_replicate_y_ps(vector)));
+	out1 = _mm_add_ps(out1, _mm_mul_ps(_mm_replicate_z_ps(m_row_1), _mm_replicate_z_ps(vector)));
+	out1 = _mm_add_ps(out1, _mm_replicate_w_ps(m_row_1));
+
+	__m128 out2 = _mm_mul_ps(_mm_replicate_x_ps(m_row_2), _mm_replicate_x_ps(vector));
+	out2 = _mm_add_ps(out2, _mm_mul_ps(_mm_replicate_y_ps(m_row_2), _mm_replicate_y_ps(vector)));
+	out2 = _mm_add_ps(out2, _mm_mul_ps(_mm_replicate_z_ps(m_row_2), _mm_replicate_z_ps(vector)));
+	out2 = _mm_add_ps(out2, _mm_replicate_w_ps(m_row_2));
+
+	_mm_store_ss(&pVtOut->m[0], out0);
+	_mm_store_ss(&pVtOut->m[1], out1);
+	_mm_store_ss(&pVtOut->m[2], out2);
+
+	return *pVtOut;
 }
-
-const CSfmathVector4& CSfmathMatrix::Multiplication(CSfmathVector4* pRes, const CSfmathVector3& A, const CSfmathMatrix& M) noexcept
-{
-	pRes->m[0] = M.m1[0] * A.m[0] + M.m1[1] * A.m[1] + M.m1[2] * A.m[2] + M.m1[3];
-	pRes->m[1] = M.m2[0] * A.m[0] + M.m2[1] * A.m[1] + M.m2[2] * A.m[2] + M.m2[3];
-	pRes->m[2] = M.m3[0] * A.m[0] + M.m3[1] * A.m[1] + M.m3[2] * A.m[2] + M.m3[3];
-	pRes->m[3] = M.m4[0] * A.m[0] + M.m4[1] * A.m[1] + M.m4[2] * A.m[2] + M.m4[3];
-
-	return *pRes;
-}
-
