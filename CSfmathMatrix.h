@@ -16,6 +16,8 @@ public:
 	void Set(const CSfmathVector3& ptOrigin, const CSfmathVector3& vtX, const CSfmathVector3& vtY, const CSfmathVector3& vtZ) noexcept;
 	void SetIdentity() noexcept;
 
+	bool InvertMatrix(CSfmathMatrix& dest) const noexcept;
+
 public:	
 	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pMtxAtoC, const CSfmathMatrix& mtxAtoB, const CSfmathMatrix& mtxBtoC) noexcept;
 	static const CSfmathVector3& Multiplication(CSfmathVector3* pVtOut, const CSfmathVector3& vt, const CSfmathMatrix& mtx) noexcept;
