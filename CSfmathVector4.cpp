@@ -1,11 +1,6 @@
 #include "stdafx.h"
 #include "CSfmathVector4.h"
 
-inline CSfmathVector4 operator *(const CSfmathVector4& V, float k)
-{
-	return CSfmathVector4(V.m[0] * k, V.m[1] * k, V.m[2] * k, V.m[3] * k);
-}
-
 CSfmathVector4::CSfmathVector4() noexcept
 {
 
@@ -29,6 +24,11 @@ CSfmathVector4::CSfmathVector4(float fX, float fY, float fZ, float fW) noexcept
 CSfmathVector4::operator const float* () const noexcept
 {
 	return &m[0];
+}
+
+CSfmathVector4 CSfmathVector4::operator*(float k) const noexcept
+{
+	return CSfmathVector4(m[0] * k, m[1] * k, m[2] * k, m[3] * k);
 }
 
 void CSfmathVector4::Set(const CSfmathVector4& vt) noexcept

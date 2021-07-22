@@ -9,7 +9,8 @@ public:
 	CSfmathVector4(const CSfmathVector3& vt,float fW) noexcept;
 	CSfmathVector4(float fX, float fY, float fZ, float fW) noexcept;
 
-	operator const float*() const noexcept;
+	operator const float* () const noexcept;
+	CSfmathVector4 operator*(float k) const noexcept;
 
 public:
 	void Set(const CSfmathVector4& vt) noexcept;
@@ -19,5 +20,3 @@ public:
 public:
 	float m[4];
 };
-
-CSfmathVector4 operator *(const CSfmathVector4& V, float k);

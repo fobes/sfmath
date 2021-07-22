@@ -25,6 +25,11 @@ CSfmathVector3::CSfmathVector3(float fX, float fY, float fZ) noexcept : m{ fX, f
 
 }
 
+CSfmathVector3::operator const float* () const noexcept
+{
+	return &m[0];
+}
+
 const CSfmathVector3& CSfmathVector3::operator+=(const CSfmathVector3& other) noexcept
 {
 	m[0] += other.m[0];
@@ -106,7 +111,7 @@ float CSfmathVector3::DotProduct(const CSfmathVector3& vtOther) const noexcept
 
 CSfmathVector3 CSfmathVector3::Normalize() const noexcept
 {
-	return *this * rsqrt(this->DotProduct(*this));
+	return *this / Length();
 }
 
 float CSfmathVector3::Length() const noexcept

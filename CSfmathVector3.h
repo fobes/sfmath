@@ -8,6 +8,8 @@ public:
 	CSfmathVector3(const CSfmathVector3& other) noexcept;
 	CSfmathVector3(float fX, float fY, float fZ) noexcept;
 
+	operator const float* () const noexcept;
+
 	const CSfmathVector3& operator +=(const CSfmathVector3& other) noexcept;
 	const CSfmathVector3& operator -=(const CSfmathVector3& other) noexcept;
 
@@ -32,8 +34,6 @@ public:
 	CSfmathVector3 Normalize() const noexcept;
 
 	float Length() const noexcept;
-
-
 
 public:
 	float m[3];
