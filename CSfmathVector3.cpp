@@ -114,7 +114,12 @@ CSfmathVector3 CSfmathVector3::Normalize() const noexcept
 	return *this / Length();
 }
 
+float CSfmathVector3::Square() const noexcept
+{
+	return m[0] * m[0] + m[1] * m[1] + m[2] * m[2];
+}
+
 float CSfmathVector3::Length() const noexcept
 {
-	return sqrt(m[0] * m[0] + m[1] * m[1] + m[2] * m[2]);
+	return sqrt(Square());
 }

@@ -33,6 +33,7 @@ public:
 
 	CSfmathVector3 Normalize() const noexcept;
 
+	float Square() const noexcept;
 	float Length() const noexcept;
 
 public:
