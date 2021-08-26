@@ -240,6 +240,7 @@
     <ClInclude Include="CSfmathMatrix.h" />
     <ClInclude Include="CSfmathQuaternion.h" />
     <ClInclude Include="CSfmathTransform.h" />
+    <ClInclude Include="CSfmathVector2.h" />
     <ClInclude Include="CSfmathVector3.h" />
     <ClInclude Include="CSfmathVector4.h" />
     <ClInclude Include="Export.h" />
@@ -251,6 +252,7 @@
     <ClCompile Include="CSfmathMatrix.cpp" />
     <ClCompile Include="CSfmathQuaternion.cpp" />
     <ClCompile Include="CSfmathTransform.cpp" />
+    <ClCompile Include="CSfmathVector2.cpp" />
     <ClCompile Include="CSfmathVector3.cpp" />
     <ClCompile Include="CSfmathVector4.cpp" />
     <ClCompile Include="dllmain.cpp" />
