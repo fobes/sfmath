@@ -21,6 +21,7 @@ public:
 public:	
 	static const CSfmathMatrix& Multiplication(CSfmathMatrix* pMtxAtoC, const CSfmathMatrix& mtxAtoB, const CSfmathMatrix& mtxBtoC) noexcept;
 	static const CSfmathVector3& Multiplication(CSfmathVector3* pVtOut, const CSfmathVector3& vt, const CSfmathMatrix& mtx) noexcept;
+	static const CSfmathVector4& Multiplication(CSfmathVector4* pVtOut, const CSfmathVector4& vt, const CSfmathMatrix& mtx) noexcept;
 
 public:
 	float m1[4];

@@ -258,3 +258,40 @@ const CSfmathVector3& CSfmathMatrix::Multiplication(CSfmathVector3* pVtOut, cons
 
 	return *pVtOut;
 }
+
+const CSfmathVector4& CSfmathMatrix::Multiplication(CSfmathVector4* pVtOut, const CSfmathVector4& vt, const CSfmathMatrix& M) noexcept
+{
+	const __m128& vector = _mm_setr_ps(vt.m[0], vt.m[1], vt.m[2], vt.m[3]);
+
+	const __m128& m_row_0 = _mm_loadu_ps(M.m1);
+	const __m128& m_row_1 = _mm_loadu_ps(M.m2);
+	const __m128& m_row_2 = _mm_loadu_ps(M.m3);
+	const __m128& m_row_3 = _mm_loadu_ps(M.m4);
+
+	__m128 out0 = _mm_mul_ps(_mm_replicate_x_ps(m_row_0), _mm_replicate_x_ps(vector));
+	out0 = _mm_add_ps(out0, _mm_mul_ps(_mm_replicate_y_ps(m_row_0), _mm_replicate_y_ps(vector)));
+	out0 = _mm_add_ps(out0, _mm_mul_ps(_mm_replicate_z_ps(m_row_0), _mm_replicate_z_ps(vector)));
+	out0 = _mm_add_ps(out0, _mm_replicate_w_ps(m_row_0));
+
+	__m128 out1 = _mm_mul_ps(_mm_replicate_x_ps(m_row_1), _mm_replicate_x_ps(vector));
+	out1 = _mm_add_ps(out1, _mm_mul_ps(_mm_replicate_y_ps(m_row_1), _mm_replicate_y_ps(vector)));
+	out1 = _mm_add_ps(out1, _mm_mul_ps(_mm_replicate_z_ps(m_row_1), _mm_replicate_z_ps(vector)));
+	out1 = _mm_add_ps(out1, _mm_replicate_w_ps(m_row_1));
+
+	__m128 out2 = _mm_mul_ps(_mm_replicate_x_ps(m_row_2), _mm_replicate_x_ps(vector));
+	out2 = _mm_add_ps(out2, _mm_mul_ps(_mm_replicate_y_ps(m_row_2), _mm_replicate_y_ps(vector)));
+	out2 = _mm_add_ps(out2, _mm_mul_ps(_mm_replicate_z_ps(m_row_2), _mm_replicate_z_ps(vector)));
+	out2 = _mm_add_ps(out2, _mm_replicate_w_ps(m_row_2));
+
+	__m128 out3 = _mm_mul_ps(_mm_replicate_x_ps(m_row_3), _mm_replicate_x_ps(vector));
+	out3 = _mm_add_ps(out3, _mm_mul_ps(_mm_replicate_y_ps(m_row_3), _mm_replicate_y_ps(vector)));
+	out3 = _mm_add_ps(out3, _mm_mul_ps(_mm_replicate_z_ps(m_row_3), _mm_replicate_z_ps(vector)));
+	out3 = _mm_add_ps(out3, _mm_replicate_w_ps(m_row_3));
+
+	_mm_store_ss(&pVtOut->m[0], out0);
+	_mm_store_ss(&pVtOut->m[1], out1);
+	_mm_store_ss(&pVtOut->m[2], out2);
+	_mm_store_ss(&pVtOut->m[3], out3);
+
+	return *pVtOut;
+}
