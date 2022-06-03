@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CVector2.hpp"
 
 namespace sfm

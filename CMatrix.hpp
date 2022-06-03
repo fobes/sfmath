@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CVector4.hpp"
 #include <xmmintrin.h>
 
