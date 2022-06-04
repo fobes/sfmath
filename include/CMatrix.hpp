@@ -36,7 +36,6 @@ namespace sfm
 
 	inline CMatrix::CMatrix() noexcept
 	{
-
 	}
 
 	inline void CMatrix::Set(const CVector3& ptOrigin, const CVector3& vtX, const CVector3& vtY, const CVector3& vtZ) noexcept
@@ -70,7 +69,7 @@ namespace sfm
 
 	inline bool CMatrix::InvertMatrix(CMatrix& dest) const noexcept
 	{
-		float inv[16];
+		float inv[16]{};
 
 		inv[0] = m2[1] * m3[2] * m4[3] - m2[1] * m3[3] * m4[2] - m3[1] * m2[2] * m4[3] +
 			m3[1] * m2[3] * m4[2] + m4[1] * m2[2] * m3[3] - m4[1] * m2[3] * m3[2];
@@ -126,23 +125,10 @@ namespace sfm
 
 		det = 1.0f / det;
 
-		int n;
-		for (n = 0; n < 4; n++)
-		{
-			dest.m1[n] = inv[n] * det;
-		}
-		for (n = 4; n < 8; n++)
-		{
-			dest.m2[n - 4] = inv[n] * det;
-		}
-		for (n = 8; n < 12; n++)
-		{
-			dest.m3[n - 8] = inv[n] * det;
-		}
-		for (n = 12; n < 16; n++)
-		{
-			dest.m4[n - 12] = inv[n] * det;
-		}
+		dest.m1[0] = inv[0] * det; dest.m2[0] = inv[4] * det; dest.m3[0] = inv[8]  * det; dest.m4[0] = inv[12] * det;
+		dest.m1[1] = inv[1] * det; dest.m2[1] = inv[5] * det; dest.m3[1] = inv[9]  * det; dest.m4[1] = inv[13] * det;
+		dest.m1[2] = inv[2] * det; dest.m2[2] = inv[6] * det; dest.m3[2] = inv[10] * det; dest.m4[2] = inv[14] * det;
+		dest.m1[3] = inv[3] * det; dest.m2[3] = inv[7] * det; dest.m3[3] = inv[11] * det; dest.m4[3] = inv[15] * det;
 
 		return true;
 	}

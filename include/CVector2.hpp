@@ -1,4 +1,5 @@
 ﻿#pragma once
+
 #include <cmath>
 
 namespace sfm
@@ -34,7 +35,8 @@ namespace sfm
 		float m[2];
 	};
 
-	inline CVector2::CVector2() noexcept
+	inline CVector2::CVector2() noexcept:
+		m{ 0.0f, 0.0f }
 	{
 
 	}

@@ -35,7 +35,8 @@ namespace sfm
 		float m[4];
 	};
 
-	inline CVector4::CVector4() noexcept
+	inline CVector4::CVector4() noexcept:
+		m{ 0.0f, 0.0f, 0.0f, 0.0f }
 	{
 
 	}

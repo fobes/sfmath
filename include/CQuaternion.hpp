@@ -1,4 +1,6 @@
 ﻿#pragma once
+
+#define _USE_MATH_DEFINES
 #include <cmath>
 #include "CVector3.hpp"
 
@@ -22,15 +24,16 @@ namespace sfm
 
 	inline CQuaternion::CQuaternion(const CVector3& vt, float fAngleDegree) noexcept
 	{
-		fAngleDegree = fAngleDegree / 360 * (float)M_PI * 2;
+		fAngleDegree = fAngleDegree / 360.0f * static_cast<float>(M_PI * 2);
 
-		m_fW = cos(fAngleDegree / 2);
-		m_vtAxis = vt * sin(fAngleDegree / 2);
+		m_fW = cos(fAngleDegree * 0.5f);
+		m_vtAxis = vt * sin(fAngleDegree * 0.5f);
 	}
 
-	inline CQuaternion::CQuaternion() noexcept
+	inline CQuaternion::CQuaternion() noexcept:
+		m_fW(0.0f),
+		m_vtAxis()
 	{
-
 	}
 
 	inline const CQuaternion CQuaternion::Inverted() const noexcept

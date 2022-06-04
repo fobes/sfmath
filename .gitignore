@@ -1,7 +1,6 @@
 *.obj
 *.log
 *.tlog
-*.txt
 *.pdb
 /x64/*
 /Win32/*
@@ -9,3 +8,4 @@
 /Release/*
 *.vcxproj.user
 /Release_Profiler/*
+/build/*
