@@ -10,6 +10,7 @@ set(HEADERS
 	include/CVector3.hpp
 	include/CVector4.hpp
 	include/Vertices.hpp
+	include/VectorUtils.hpp
 )
 
 set(SOURCES

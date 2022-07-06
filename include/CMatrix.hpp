@@ -20,7 +20,8 @@ namespace sfm
 		void Set(const CVector3& ptOrigin, const CVector3& vtX, const CVector3& vtY, const CVector3& vtZ) noexcept;
 		void SetIdentity() noexcept;
 
-		bool InvertMatrix(CMatrix& dest) const noexcept;
+		bool Invert(CMatrix& dest) const noexcept;
+		void Transpose(CMatrix& dest) const noexcept;
 
 	public:
 		static const CMatrix& Multiplication(CMatrix* pMtxAtoC, const CMatrix& mtxAtoB, const CMatrix& mtxBtoC) noexcept;
@@ -67,7 +68,7 @@ namespace sfm
 		m1[0] = m2[1] = m3[2] = m4[3] = 1.0f;
 	}
 
-	inline bool CMatrix::InvertMatrix(CMatrix& dest) const noexcept
+	inline bool CMatrix::Invert(CMatrix& dest) const noexcept
 	{
 		float inv[16]{};
 
@@ -131,6 +132,14 @@ namespace sfm
 		dest.m1[3] = inv[3] * det; dest.m2[3] = inv[7] * det; dest.m3[3] = inv[11] * det; dest.m4[3] = inv[15] * det;
 
 		return true;
+	}
+
+	inline void CMatrix::Transpose(CMatrix& dest) const noexcept
+	{
+		dest.m1[0] = m1[0]; dest.m2[0] = m1[1]; dest.m3[0] = m1[2]; dest.m4[0] = m1[3];
+		dest.m1[1] = m2[0]; dest.m2[1] = m2[1]; dest.m3[1] = m2[2]; dest.m4[1] = m2[3];
+		dest.m1[2] = m3[0]; dest.m2[2] = m3[1]; dest.m3[2] = m3[2]; dest.m4[2] = m3[3];
+		dest.m1[3] = m4[0]; dest.m2[3] = m4[1]; dest.m3[3] = m4[2]; dest.m4[3] = m4[3];
 	}
 
 	inline const CMatrix& CMatrix::Multiplication(CMatrix* pMtxAtoC, const CMatrix& mtxAtoB, const CMatrix& mtxBtoC) noexcept
